@@ -1,0 +1,16 @@
+GET http://localhost:3001/api/users/
+
+###
+
+DELETE http://localhost:3001/api/users/1
+
+###
+
+POST http://localhost:3001/api/users/
+Content-Type: : application/json
+
+{
+    "fname": "new",
+    "lname": "test",
+    "email": "hesdfasd@gmail.com"
+}
