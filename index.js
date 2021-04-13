@@ -25,14 +25,22 @@ app.get('/api/users/:id', (request, response) => {
       user
         ? response.json(user)
         : response.status(404).end()
+    }).catch(error => {
+      response.status(400).send({error:'malformated id'}).end()
     })
 })
 
 app.delete('/api/users/:id', (request, response) => {
-  const id = Number(request.params.id)
-  const user = users.filter(user => user.id !== id)
-  response.json(user)
-  response.status(204).end()
+  const id = request.params.id
+  User.findByIdAndRemove(id)
+    .then(user => {
+      user
+      ? response.json(user)
+      : response.status(404).end()
+    }).catch(error =>{
+      console.log(error);
+      response.status(400).send({error:'malformated id'}).end()
+    })
 })
 
 app.post('/api/users/', (request, response) => {
@@ -44,17 +52,13 @@ app.post('/api/users/', (request, response) => {
     "lname": user.lname,
     "password": user.password
   })
-
-  if(!email || !fname || !lname || !password) {
-    response.json({error:"some Field(s) is/are missing"})
-  }
+ 
   newUser.save()
     .then(result => {
-      response.status(200)
-      response.json(newUser)
+      response.json(newUser).status(200).end()
     }).catch(error => {
-      console.log("error occured while saving the user", error);
-      json.response({error: error})
+      response.json({error: error})
+      response.status(500).end()
     })
 })
 

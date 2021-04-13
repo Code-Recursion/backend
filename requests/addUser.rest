@@ -1,10 +1,10 @@
-# Add a single user all fields are important
+# Add a single user all fields are
 POST http://localhost:3001/api/users/
 Content-Type: application/json
 
 {
-    "email": "test@email.com",
-    "fname": "Bruce",
-    "lname": "Wayne",
-    "password": "1345BruceTest"
+    "email": "delete",
+    "fname": "de",
+    "lname": "delete",
+    "password": "delete"
 }
