@@ -8,3 +8,15 @@ Content-Type: application/json
     "lname": "delete",
     "password": "delete"
 }
+
+###
+
+# Update user
+PUT http://localhost:3001/api/users/6075bffd0a9ce8277c1e9f69
+Content-Type: application/json
+
+{
+    "fname": "a",
+    "lname": "b",
+    "password": "password"
+}

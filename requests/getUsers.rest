@@ -4,4 +4,4 @@ GET http://localhost:3001/api/users/
 ###
 
 # Get single user
-GET http://localhost:3001/api/users/234
+GET http://localhost:3001/api/users/6075bf35d385591fb0a1acb4
