@@ -1,45 +1,31 @@
-const { request } = require('express')
 const express = require('express')
 const cors = require('cors')
+require('dotenv').config()
+const User = require('./models/user')
 const app = express()
 
 app.use(cors())
-
-let users = [
-  {
-    id: 1,
-    fname: "Ajay",
-    lname: "Singh",
-    email: "helloajaysingh1@gmail.com",
-  },
-  {
-    id: 2,
-    fname: "John",
-    lname: "john",
-    email: "helloajaysingh1@gmail.com",
-  },
-  {
-    id: 3,
-    fname: "carl",
-    lname: "johnson",
-    email: "helloajaysingh1@gmail.com",
-  },
-]
+app.use(express.json())
 
 app.get('/', (request, response) => {
-  response.send("hello mf")
+  response.send("Hello there")
 })
 
 app.get('/api/users', (request, response) => {
-  response.json(users)
+  User.find({}).then(users => {
+    response.json(users)
+  })
 })
 
 app.get('/api/users/:id', (request, response) => {
-  const id = Number(request.params.id)
-  const user = users.find(user => user.id === id)
-  user
-    ? response.json(user)
-    : response.status(404).end()
+  const id = request.params.id
+  console.log(id)
+  User.findById(id)
+    .then(user => {
+      user
+        ? response.json(user)
+        : response.status(404).end()
+    })
 })
 
 app.delete('/api/users/:id', (request, response) => {
@@ -50,12 +36,26 @@ app.delete('/api/users/:id', (request, response) => {
 })
 
 app.post('/api/users/', (request, response) => {
-  // const user = request.body  
-  newId = Math.max(...users.map(user => user.id))
-  console.log(newId + 1)
-  // const updatedUsers = users.concat(user)
-  // response.json(updatedUsers)
-  // response.status(201).end()
+  const user = request.body
+
+  const newUser = new User({
+    "email": user.email,
+    "fname": user.fname,
+    "lname": user.lname,
+    "password": user.password
+  })
+
+  if(!email || !fname || !lname || !password) {
+    response.json({error:"some Field(s) is/are missing"})
+  }
+  newUser.save()
+    .then(result => {
+      response.status(200)
+      response.json(newUser)
+    }).catch(error => {
+      console.log("error occured while saving the user", error);
+      json.response({error: error})
+    })
 })
 
 const unknownEndpoint = (request, response) => {
