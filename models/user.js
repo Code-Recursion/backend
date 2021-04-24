@@ -1,41 +1,24 @@
-const mongoose = require("mongoose");
-
-const url = process.env.MONGODB_URI;
-
-console.log("connecting to", url);
-mongoose
-  .connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then((result) => {
-    console.log("connected to mongodb", url);
-  })
-  .catch((error) => {
-    console.log("error while connecting to mongodb", error);
-  });
+const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
   email: {
-    type: "String",
+    type: String,
     required: true,
   },
   fname: {
-    type: "String",
+    type: String,
     required: true,
   },
   lname: {
-    type: "String",
+    type: String,
     required: true,
   },
   role: {
-    type: "String",
+    type: String,
     required: true,
   },
   password: {
-    type: "String",
+    type: String,
     required: true,
     minlength:8
   },
