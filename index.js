@@ -40,29 +40,41 @@ app.get('/api/users/:id', (request, response, next) => {
 
 app.delete('/api/users/:id', (request, response, next) => {
   const id = request.params.id
-  User.findByIdAndRemove(id)
+
+  User.findById(id)
     .then(user => {
-      response.status(204).end()
+      if (user) {
+        User.findByIdAndRemove(id)
+          .then(user => {
+            console.log("deleted user ->", user)
+            response.json({ "message": `user with id ${id} deleted successfully` })
+          }).catch(error => next(error))
+      }
+      else {
+        response.status(404).json({ "error": `user with id ${id} does'nt exists` }).end()
+      }
     }).catch(error => next(error))
 })
 
-app.post('/api/users/', (request, response) => {
+app.post('/api/users/', (request, response, next) => {
   const user = request.body
-
+  if (!user.fname || !user.lname || !user.role || !user.password || !user.email ) {
+    return response.status(400).json({ error: 'content missing' })
+  }
   const newUser = new User({
     "fname": user.fname,
     "lname": user.lname,
+    "email": user.email,
+    "role": user.role,
     "password": user.password
   })
- 
+
   newUser.save()
     .then(result => {
       response.json(newUser).status(200).end()
-    }).catch(error => {
-      response.json({error: error})
-      response.status(500).end()
     })
-})
+      .catch(error => next(error))
+}) 
 
 app.put('/api/users/:id', (request, response, next) => {
   const user = request.body
@@ -73,8 +85,8 @@ app.put('/api/users/:id', (request, response, next) => {
     "password": user.password
   }
 
-  // bydefault updatedUser returns old res, optional param "{new : true}" fixes it, returns updated data
-  User.findByIdAndUpdate(request.params.id, updatedUserData, {new : true})
+  // by default updatedUser returns old res, optional param "{new : true}" fixes it, returns updated data
+  User.findByIdAndUpdate(request.params.id, updatedUserData, { new: true })
     .then(updatedUser => {
       response.json(updatedUser)
     }).catch(error => next(error))
@@ -91,8 +103,9 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } 
-
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
+  }
   next(error)
 }
 
