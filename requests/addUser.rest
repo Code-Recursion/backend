@@ -6,7 +6,8 @@ Content-Type: application/json
     "email": "delete",
     "fname": "de",
     "lname": "delete",
-    "password": "delete"
+    "password": "delete",
+    "role": "user"
 }
 
 ###
