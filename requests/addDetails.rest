@@ -1,0 +1,27 @@
+POST http://localhost:3001/api/details/
+Content-Type: application/json
+
+{
+    "image": "https://media-exp1.licdn.com/dms/image/C5603AQH61pSdmPsRaQ/profile-displayphoto-shrink_200_200/0/1598768066687?e=1625097600&v=beta&t=PHq0Q-89Laoq86RXFtKPjJ7o9OIiMk32C9nD3_YwUtk",
+    "headline": "Lead at Developer Student Clubs l Microsoft Student Partner",
+    "about": "I am a pre final year student pursuing B.Tech from BIST Bhopal, in Information and Technology stream, seeking strong interest in software development and looking for some exciting opportunities related to the same.",
+    "resume": "https://docs.google.com/document/d/1H2Pn9jzwn69gUS64UjTNw5nusj92blGnAk_AJjkHveo/edit?usp=sharing",
+    "website": "https://helloajaysingh.me",
+    "github": "https://github.com/Code-Recursion",
+    "skills": "javascript,c++",
+    "language": "hindi,english",
+    "experience": 0,
+    "secondary": 9.0,
+    "seniorSecondary": 7.32,
+    "yearOfPass": 2018,
+    "currentGpa": 8.37,
+    "yearOfGrad": 2022,
+    "course": "B.Tech",
+    "school": "Kendriya Vidyalaya No.1 Bhopal",
+    "college": "Bansal Institute of Science and Technology",
+    "city": "Bhopal",
+    "state": "Madhya Pradesh",
+    "country": "India",
+    "openToWork": true,
+    "userId":"608447380477cb01189fb52d"
+}

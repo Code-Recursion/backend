@@ -24,11 +24,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength:8
   },
-  details: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Details'
-  },
-  isArchieved: Number
+  detail: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Details'
+  }
 });
 
 userSchema.plugin(uniqueValidator)

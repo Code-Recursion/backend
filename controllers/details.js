@@ -1,11 +1,51 @@
-const detailsRouter = require('express').Router()
-const Details = require('../models/details')
+const detailsRouter = require("express").Router();
+const Detail = require("../models/details");
+const User = require("../models/user");
 
-detailsRouter.get('/', (request, response) => {
-  Details.find({}).then(detail => {
-    response.json(detail)
-  })
-})
+detailsRouter.get("/", async (request, response) => {
+  const details = await Detail.find({}).populate("user")
+  response.json(details)
+});
+
+detailsRouter.post("/", async (request, response, next) => {
+  const body = request.body;
+  const user = await User.findById(body.userId);
+  
+  const detail = new Detail({
+    dob: new Date(),
+    image: body.image,
+    headline: body.headline,
+    about: body.about,
+    resume: body.resume,
+    website: body.website,
+    github: body.github,
+    skills: body.skills,
+    language: body.langauge,
+    experience: body.experience,
+    secondary: body.secondary,
+    seniorSecondary: body.seniorSecondary,
+    yearOfPass: body.yearOfGrad,
+    currentGpa: body.currentGpa,
+    yearOfGrad: body.yearOfGrad,
+    course: body.course,
+    school: body.school,
+    college: body.college,
+    city: body.city,
+    state: body.state,
+    country: body.country,
+    openToWork: body.openToWork,
+    user: user._id,
+  });
+
+  try {
+    const savedDetails = await detail.save();
+    user.details = savedDetails._id;
+    await user.save();
+    response.json(savedDetails);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // userRouter.get('/:id', (request, response, next) => {
 //   const id = request.params.id
@@ -53,7 +93,7 @@ detailsRouter.get('/', (request, response) => {
 //       response.json(newUser).status(200).end()
 //     })
 //       .catch(error => next(error))
-// }) 
+// })
 
 // userRouter.put('/:id', (request, response, next) => {
 //   const user = request.body
@@ -71,4 +111,4 @@ detailsRouter.get('/', (request, response) => {
 //     }).catch(error => next(error))
 // })
 
-module.exports = detailsRouter
+module.exports = detailsRouter;
