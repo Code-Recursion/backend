@@ -3,10 +3,10 @@ POST http://localhost:3001/api/users/
 Content-Type: application/json
 
 {
-    "email": "delete",
-    "fname": "de",
-    "lname": "delete",
-    "password": "delete",
+    "email": "email@email.com",
+    "fname": "ajay",
+    "lname": "singh",
+    "password": "hello123",
     "role": "user"
 }
 

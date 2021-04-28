@@ -3,7 +3,7 @@ const userRouter = require("express").Router();
 const User = require("../models/user");
 
 userRouter.get("/", async (request, response) => {
-  const users = await User.find({}).populate("detail", {dob:1, school:1});
+  const users = await User.find({}).populate("detail", { dob: 1, school: 1 });
   response.json(users);
 });
 
@@ -60,7 +60,7 @@ userRouter.post("/", async (request, response, next) => {
     lname: user.lname,
     email: user.email,
     role: user.role,
-    password: passwordHash,
+    passwordHash,
   });
 
   newUser
@@ -71,13 +71,15 @@ userRouter.post("/", async (request, response, next) => {
     .catch((error) => next(error));
 });
 
-userRouter.put("/:id", (request, response, next) => {
+userRouter.put("/:id", async (request, response, next) => {
   const user = request.body;
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(user.password, saltRounds);
 
   const updatedUserData = {
     fname: user.fname,
     lname: user.lname,
-    password: user.password,
+    passwordHash,
   };
 
   // by default updatedUser returns old res, optional param "{new : true}" fixes it, returns updated data
