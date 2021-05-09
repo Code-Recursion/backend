@@ -1,15 +1,37 @@
 const detailsRouter = require("express").Router();
 const Detail = require("../models/details");
 const User = require("../models/user");
+const jwt = require('jsonwebtoken')
 
 detailsRouter.get("/", async (request, response) => {
   const details = await Detail.find({}).populate("user")
   response.json(details)
 });
 
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7)
+  }
+  return null
+}
+
 detailsRouter.post("/", async (request, response, next) => {
   const body = request.body;
-  const user = await User.findById(body.userId);
+
+  const token = getTokenFrom(request)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+  const user = await User.findById(decodedToken.id)
+  console.log("--------------------------------------------------------------------------------")
+  console.log(user)
+  console.log("--------------------------------------------------------------------------------")
+
+  // console.log(u)
+
+  // const user = await User.findById(body.userId);
   
   const detail = new Detail({
     dob: new Date(),
