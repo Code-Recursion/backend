@@ -8,6 +8,15 @@ detailsRouter.get("/", async (request, response) => {
   response.json(details)
 });
 
+detailsRouter.get("/:id", (request, response, next) => {
+  const id = request.params.id;
+  Detail.findById(id)
+    .then((detail) => {
+      detail ? response.json(detail) : response.status(404).end();
+    })
+    .catch((error) => next(error));
+});
+
 const getTokenFrom = request => {
   const authorization = request.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
@@ -27,9 +36,7 @@ detailsRouter.post("/", async (request, response, next) => {
   const user = await User.findById(decodedToken.id)
   console.log("----------------------------------------------------------------")
   console.log(user)
-  console.log("--------------------------------------------------------------------------------")
-
-  // console.log(u)
+  console.log("----------------------------------------------------------------")
 
   // const user = await User.findById(body.userId);
   
