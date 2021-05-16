@@ -1,0 +1,24 @@
+
+GET  http://localhost:3001/api/notice
+
+###
+
+POST http://localhost:3001/api/notice
+Content-Type: application/json
+
+{
+  "notice": ""
+}
+
+### ADMIN
+
+PUT http://localhost:3001/api/notice/60a14bb76cf7c301bcffc203
+Content-Type: application/json
+
+{
+ "notice": "testing notice"
+}
+
+###
+
+DELETE  http://localhost:3001/api/notice/60a14bb36cf7c301bcffc202
