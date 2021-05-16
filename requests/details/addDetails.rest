@@ -1,6 +1,6 @@
 POST http://localhost:3001/api/details/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsImlkIjoiNjA4NmZiODViZGMxZjYzYWQ4ZmYxNDI1IiwiZGV0YWlsIjoiNjA4YTJjYmQ4M2U3MmYyMDJjMDk3ZTJjIiWF0IjoxNjIwNTY2NTg0fQ.9wNZtVuDIxOu4uavlU3YEEIbyzKa7ZmsatzjQ08IwLk
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsImlkIjoiNjA4NmZiODViZGMxZjYzYWQ4ZmYxNDI1IiwiZGV0YWlsIjoiNjA4YTJjYmQ4M2U3MmYyMDJjMDk3ZTJjIiwiaWF0IjoxNjIwNTY2NTg0fQ.9wNZtVuDIxOu4uavlU3YEEIbyzKa7ZmsatzjQ08IwLk
 
 {
     "image": "https://media-exp1.licdn.com/dms/image/C5603AQH61pSdmPsRaQ/profile-displayphoto-shrink_200_200/0/1598768066687?e=1625097600&v=beta&t=PHq0Q-89Laoq86RXFtKPjJ7o9OIiMk32C9nD3_YwUtk",
