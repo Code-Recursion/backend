@@ -3,11 +3,11 @@ POST http://localhost:3001/api/users/
 Content-Type: application/json
 
 {
-    "email": "tsete@d.com",
-    "fname": "ajas",
-    "lname": "sindh",
-    "password": "asdfasdf",
-    "role": "user"
+    "email": "admin@admin.com",
+    "fname": "Bruce",
+    "lname": "Wayne",
+    "password": "batman",
+    "role": "admin"
 }
 
 ###
